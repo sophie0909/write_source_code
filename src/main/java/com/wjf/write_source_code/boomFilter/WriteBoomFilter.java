@@ -106,6 +106,5 @@ public class WriteBoomFilter {
     }
 
     public static void main(String[] args) {
-        BloomFilter
     }
 }

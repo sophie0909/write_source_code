@@ -1,5 +1,8 @@
 package com.wjf.write_source_code.dataStructureAndAlgorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author wjf 2021-01-11
  */
@@ -11,24 +14,39 @@ public class Solution {
         }
         int m=str1.length();
         int n=str2.length();
+        //使用bp[i][j] 用来表示 str1{0->(i-1)} 和str2{0->(j-1)}的公共字符串长度
         int[][] bp=new int[m][n];
         int maxLength=0;
         int maxIndex=0;
-        for (int i = 0; i <m ; i++) {
-            for (int j = 0; j <n ; j++) {
+        for (int i = 0; i <m ; ++i) {
+            for (int j = 0; j <n ; ++j) {
                 if(str1.charAt(i)==str2.charAt(j)){
-                    if(i==0&&j==0){
+                    if(i==0||j==0){
                         bp[i][j]=1;
                     }else{
+                        // bp[i][j] 和bp[i-1][j-1]相比较 str1向后移动一个字符 str2向后移动一个字符
                         bp[i][j]=bp[i-1][j-1]+1;
                     }
+                    //
+                    if(maxLength<bp[i][j]){
+                        maxIndex=i;
+                        maxLength=bp[i][j];
+                    }
+
                 }
             }
+        }
+        if(maxLength == 0){
+            return "-1";
         }
         return str1.substring(maxIndex-maxLength+1,maxIndex+1);
     }
     /**
      * 最长公共子串
+     * 1、每当有重复字符出现 才可能对重复字符数有影响 str1.charAt(i) == str2.charAt(j)
+     * 在二维数组中，在有重复数组出现时，计算出当前的重复字符数
+     *2、随着两个字符串循环的推进，重复字符数 可能会变大或者变小，就是出现最长重复字符数的坐标是不固定的 所以添加maxLen < dp[i][j]判断
+     *3、添加if(maxLen == 0)判断的原因 str1的长度为1时 str1.substring(indexMax - maxLen  + 1 , indexMax + 1)会出现异常
      * @param str1
      * @param str2
      * @return
@@ -71,34 +89,32 @@ public class Solution {
 
     }
 
-    public static String LCS2 (String str1, String str2) {
-        // write code here
-        if(str1==null||str2==null||str1.length()==0||str2.length()==0){
-            return "-1";
-        }
-        int end=0;
-        int maxLen=0;
-        int dp[][]=new int[str1.length()+1][str2.length()+1];
-        for (int i = 0; i < str1.length(); i++) {
-            for (int j = 0; j < str2.length(); j++) {
-                if(str2.charAt(j)==str1.charAt(i)){
-                    if(i==0||j==0){
-                        dp[i][j]=1;
-                    }else{
-                        dp[i][j]=dp[i-1][j-1]+1;
-                    }
-                    if(dp[i][j]>maxLen){
-                        maxLen=dp[i][j];
-                        end = i;
-                    }
+
+    /*
+     * Longest Common SubString最长公共子串 - 结果
+     * Longest Common SubSequece最长公共子序列 - 结果
+     * Longest Increasing SubSequence最长递增子序列 - 长度 & 结果
+     * 无重复字符的最长子串 - 长度
+     */
+
+    public static String longestCommonSubSequece(String str1,String str2){
+        List<Character> charList=new ArrayList<>();
+        int m = str1.length();
+        int n = str2.length();
+        for(int i = 0; i < m; ++ i){
+            for(int j = 0; j < n; ++j){
+                if(str1.charAt(i) == str2.charAt(j)){
+
                 }
             }
         }
-        return maxLen==0?"-1":str1.substring(end-maxLen+1,end+1);
+        return "";
     }
+
     public static void main(String[] args) {
 
-        //System.out.println(new Solution().LCS("1AB2345CD","12345EF"));
+
+
 
     }
 }
