@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class WriteBoomFilter {
 
@@ -106,5 +107,7 @@ public class WriteBoomFilter {
     }
 
     public static void main(String[] args) {
+        BloomFilter bloomFilter= BloomFilter.create(Funnels.integerFunnel(), 10000, 0.01);
+        ThreadPoolExecutor
     }
 }

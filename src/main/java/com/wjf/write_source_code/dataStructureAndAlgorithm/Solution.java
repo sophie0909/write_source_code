@@ -172,6 +172,7 @@ public class Solution {
 
 
     public static void main(String[] args) {
+        System.out.println((short)10/10.2*2);
 
 
 
